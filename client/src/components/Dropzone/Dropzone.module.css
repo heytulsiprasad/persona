@@ -1,0 +1,22 @@
+.DropContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	height: 24rem;
+}
+
+.UploadIcon {
+	width: 50px;
+	background: url(../../assets/upload.svg) no-repeat center center;
+	background-size: 100%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.DropMessage {
+	text-align: center;
+	color: #4aa1f3;
+	font-family: Arial;
+	font-size: 20px;
+}

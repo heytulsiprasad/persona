@@ -7,10 +7,10 @@ import four from "../assets/four.svg";
 
 const Box = ({ id, title, body }) => (
 	<div className="flex space-x-4">
-		<div className="w-1/12 items-center">
-			<img className="mx-auto" src={id} alt="one" />
+		<div className="w-2/12 items-center">
+			<img className="mx-auto h-10" src={id} alt="one" />
 		</div>
-		<div className="w-11/12 space-y-2 items-stretch">
+		<div className="w-10/12 space-y-2 items-stretch">
 			<h1 className="text-base font-bold text-blue-900">{title}</h1>
 			<p className="text-sm text-blue-800">{body}</p>
 		</div>
@@ -46,7 +46,7 @@ const featData = [
 
 const greedy = {
 	display: "grid",
-	gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+	gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
 	gridGap: "2rem",
 };
 

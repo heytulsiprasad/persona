@@ -1,21 +1,22 @@
-import React from "react";
-
-import NavBar from "./components/NavBar";
-import Layout from "./components/base/Layout";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import Footer from "./components/Footer";
+import React, { Fragment } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./containers/Home";
+import Dashboard from "./containers/Dashboard/Dashboard";
 
 function App() {
 	return (
-		<div className="App">
-			<NavBar />
-			<Layout>
-				<Hero />
-				<Features />
-			</Layout>
-			<Footer />
-		</div>
+		<Fragment>
+			<BrowserRouter>
+				<Switch>
+					<Route exact path="/">
+						<Home />
+					</Route>
+					<Route exact path="/dashboard">
+						<Dashboard />
+					</Route>
+				</Switch>
+			</BrowserRouter>
+		</Fragment>
 	);
 }
 
