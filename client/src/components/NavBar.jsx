@@ -14,22 +14,13 @@ const NavBar = () => {
 			</div>
 			<div className="flex font-bold space-x-4 md:ml-4">
 				<div>
+					<NavLink to="/" className="text-lg">
+						Home
+					</NavLink>
+				</div>
+				<div>
 					<NavLink to="/about" className="text-lg">
 						About
-					</NavLink>
-				</div>
-				<div>
-					<NavLink to="/login" className="text-lg">
-						Login
-					</NavLink>
-				</div>
-				<div>
-					<NavLink
-						to="/dashboard"
-						activeClassName=""
-						className="text-lg text-b"
-					>
-						Dashboard
 					</NavLink>
 				</div>
 			</div>

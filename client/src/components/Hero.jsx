@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import bg from "../assets/bg.jpg";
-import upload from "../assets/upload.svg";
 import Dropzone from "./Dropzone/Dropzone";
 
 class Hero extends Component {

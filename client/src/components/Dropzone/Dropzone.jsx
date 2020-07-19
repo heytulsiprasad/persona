@@ -46,7 +46,7 @@ function Dropzone() {
 		}
 	};
 
-	const handleFiles = (files, callback) => {
+	const handleFiles = (files) => {
 		for (let i = 0; i < files.length; i++) {
 			if (validateFile(files[i])) {
 				// add to an array so we can display the name of file

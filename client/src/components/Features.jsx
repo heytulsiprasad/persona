@@ -46,7 +46,7 @@ const featData = [
 
 const greedy = {
 	display: "grid",
-	gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
+	gridTemplateColumns: "repeat(auto-fit, minmax(750px, 1fr))",
 	gridGap: "2rem",
 };
 

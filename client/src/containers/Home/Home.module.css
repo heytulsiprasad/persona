@@ -1,0 +1,9 @@
+.Home {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.HomeContent {
+  flex-grow: 1;
+}
