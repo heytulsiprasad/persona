@@ -6,7 +6,7 @@ import bg from "../../assets/bg.jpg";
 function Dropzone() {
 	const [selectedFiles, setSelectedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
-	const [image, setImage] = useState(false);
+	const [imagePresent, setImagePresent] = useState(false);
 
 	const imageRef = useRef();
 
@@ -86,7 +86,7 @@ function Dropzone() {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = function (e) {
-			setImage(true);
+			setImagePresent(true);
 			imageRef.current.src = reader.result;
 			// console.log(reader.result);
 			// set the content of imageRef div as the image tag
@@ -97,20 +97,20 @@ function Dropzone() {
 		<div
 			className={[
 				classes.DropContainer,
-				"rounded-lg border-gray-500 border-2 border-dashed",
+				!imagePresent && "rounded-lg border-gray-500 border-2 border-dashed",
 			].join(" ")}
 			onDragOver={dragOver}
 			onDragEnter={dragEnter}
 			onDragLeave={dragLeave}
 			onDrop={fileDrop}
 		>
-			{!image ? (
+			{!imagePresent ? (
 				<div className={classes.DropMessage}>
 					<div className={classes.UploadIcon}></div>
 					Drag & Drop files here or click to upload
 				</div>
 			) : (
-				<img ref={imageRef} style={{ height: "100%" }} alt="Upload Data" />
+				<img ref={imageRef} alt="Upload Data" />
 			)}
 		</div>
 	);

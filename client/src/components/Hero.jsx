@@ -16,28 +16,13 @@ class Hero extends Component {
 		this.setState({ copySuccess: "Copied!", isCopied: true });
 	};
 
-	uploadHandler = () => {};
-
 	render() {
 		const copyColor = this.state.isCopied ? "green" : "red";
 
 		return (
-			<div className="flex xl:flex-col xl:justify-center xl:items-center mt-6 px-6 sm:px-0 py-12">
-				<div className="w-1/2 xl:w-3/4 lg:w-11/12">
-					{/* <img
-						src={bg}
-						className="object-cover block rounded-lg"
-						alt="nature"
-					/> */}
-					<div className="object-cover">
-						{/* <img
-							src={upload}
-							alt="upload-here"
-							className="h-16 block"
-							style={{ filter: "opacity(0.4)" }}
-						/> */}
-						<Dropzone />
-					</div>
+			<div className="flex flex-col space-y-16 justify-center items-center mt-6 px-6 sm:px-0 py-12">
+				<div className="w-10/12 xl:w-3/4 lg:w-11/12">
+					<Dropzone />
 				</div>
 				<div className="w-1/2 xl:w-3/5 lg:w-3/4 px-12 sm:px-0 self-center xl:mt-12">
 					<h1 className="text-4xl xl:text-3xl xl:text-center">
