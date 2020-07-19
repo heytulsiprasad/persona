@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import classes from "./Dropzone.module.css";
+import axios from "axios";
 
-import bg from "../../assets/bg.jpg";
+import classes from "./Dropzone.module.css";
 
 function Dropzone() {
 	const [selectedFiles, setSelectedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [imagePresent, setImagePresent] = useState(false);
+	const [imageLink, setImageLink] = useState("");
 
 	const imageRef = useRef();
 
@@ -25,7 +26,7 @@ function Dropzone() {
 	// invokes displayImage when image is dropped
 	useEffect(() => {
 		// console.log(selectedFiles);
-		selectedFiles.length === 1 && displayImage(selectedFiles[0]);
+		selectedFiles.length === 1 && uploadImage(selectedFiles[0]);
 
 		// post to imgur via axios
 		// upload using FormData and send to axios
@@ -81,16 +82,45 @@ function Dropzone() {
 		return true;
 	};
 
-	const displayImage = (file) => {
-		// console.log(file);
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = function (e) {
-			setImagePresent(true);
-			imageRef.current.src = reader.result;
-			// console.log(reader.result);
-			// set the content of imageRef div as the image tag
+	const displayImage = (link) => {
+		// Used to render file directly (without upload)
+
+		// const reader = new FileReader();
+		// reader.readAsDataURL(file);
+		// reader.onload = function (e) {
+		// setImagePresent(true);
+		// imageRef.current.src = reader.result;
+		// console.log(reader.result);
+		// set the content of imageRef div as the image tag
+
+		setImagePresent(true);
+		setImageLink(link);
+		imageRef.current.src = link;
+	};
+
+	const uploadImage = (file) => {
+		const formData = new FormData();
+		formData.append("image", file);
+
+		const config = {
+			method: "post",
+			url: "https://api.imgur.com/3/image",
+			headers: {
+				Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`,
+			},
+			data: formData,
 		};
+
+		axios(config)
+			.then((res) => {
+				return res.data.data.link;
+			})
+			.then((link) => {
+				displayImage(link);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
