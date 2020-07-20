@@ -93,7 +93,7 @@ class Hero extends Component {
 							onClick={this.resetAll}
 							className="bg-indigo-500 w-full hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
 						>
-							Reset All
+							Reset
 						</button>
 					</div>
 				</div>

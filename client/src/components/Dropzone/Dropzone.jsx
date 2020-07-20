@@ -18,6 +18,7 @@ function Dropzone() {
 	const context = useContext(ImageContext);
 
 	const imageRef = useRef();
+	const inputRef = useRef();
 
 	const dragOver = (e) => {
 		e.preventDefault();
@@ -62,14 +63,14 @@ function Dropzone() {
 
 	useEffect(() => {
 		// resets the component state
-		if (context.isReset) {
+		if (context.isReset && (!isLoading || imageLink)) {
 			setSelectedFile({});
 			setImagePresent(false);
 			setImageLink(null);
 			setIsLoading(false);
 			setLoadPercentage(0);
 		}
-	}, [context.isReset]);
+	}, [context.isReset, isLoading, imageLink]);
 
 	const fileDrop = (e) => {
 		e.preventDefault();
@@ -82,6 +83,14 @@ function Dropzone() {
 			// alert("We only support one at a time!");
 			notify.limit("We only support one image at a time!");
 		}
+	};
+
+	const inputChangeHandler = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const file = e.target.files[0];
+		file && handleFiles(file);
 	};
 
 	const notify = {
@@ -135,7 +144,7 @@ function Dropzone() {
 				const uploadPercentage = Math.floor(
 					(progressEvent.loaded / progressEvent.total) * 100
 				);
-				setIsLoading(true); // sets is loading as true
+				setIsLoading(true); // shows the progress loader
 				setImagePresent(true); // clears the dropzone area
 				setLoadPercentage(uploadPercentage); // starts upload bar
 			},
@@ -159,6 +168,7 @@ function Dropzone() {
 			onDragEnter={dragEnter}
 			onDragLeave={dragLeave}
 			onDrop={fileDrop}
+			onClick={() => inputRef.current.click()}
 		>
 			{!imagePresent ? (
 				<div className={classes.DropMessage}>
@@ -185,6 +195,13 @@ function Dropzone() {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
+			/>
+
+			<input
+				type="file"
+				ref={inputRef}
+				className="hidden"
+				onChange={inputChangeHandler}
 			/>
 		</div>
 	);

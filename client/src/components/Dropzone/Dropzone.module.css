@@ -4,6 +4,7 @@
 	justify-content: center;
 	margin: 0;
 	min-height: 24rem;
+	cursor: pointer;
 }
 
 .UploadIcon {
