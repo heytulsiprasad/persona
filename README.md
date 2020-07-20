@@ -59,6 +59,5 @@ _We are using `.env` file inside our react project, so for it to detect we need 
 ---
 
 </br>
-<img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/heytulsiprasad?style=social" />
-</br>
+<a href="https://twitter.com/heytulsiprasad"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/heytulsiprasad?style=social"/></a>
 Made with :heart: and Javascript
