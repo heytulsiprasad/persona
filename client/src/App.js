@@ -8,12 +8,8 @@ function App() {
 		<Fragment>
 			<BrowserRouter>
 				<Switch>
-					<Route exact path="/">
-						<Home />
-					</Route>
-					<Route exact path="/about">
-						<About />
-					</Route>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/about" component={About} />
 				</Switch>
 			</BrowserRouter>
 		</Fragment>

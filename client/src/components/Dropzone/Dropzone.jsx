@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./Dropzone.module.css";
 
-function Dropzone() {
+function Dropzone({ link, isReset }) {
 	const [selectedFile, setSelectedFile] = useState({});
 	const [imagePresent, setImagePresent] = useState(false);
 	const [imageLink, setImageLink] = useState("");
@@ -45,6 +45,20 @@ function Dropzone() {
 		// post to imgur via axios
 		// upload using FormData and send to axios
 	}, [selectedFile]);
+
+	useEffect(() => {
+		// passes link of image as a prop to parent
+		link(imageLink);
+	}, [imageLink]);
+
+	useEffect(() => {
+		// resets the component state
+		if (isReset) {
+			setSelectedFile({});
+			setImagePresent(false);
+			setImageLink(null);
+		}
+	}, [isReset]);
 
 	const fileDrop = (e) => {
 		e.preventDefault();
