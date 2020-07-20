@@ -26,7 +26,7 @@ class Hero extends Component {
 				</div>
 				<div className="w-1/2 xl:w-3/5 lg:w-3/4 px-12 sm:px-0 self-center xl:mt-12">
 					<h1 className="text-4xl xl:text-3xl xl:text-center">
-						Your Magic is Here{" "}
+						Your Magic Link{" "}
 						<span role="img" aria-label="magic">
 							🔮
 						</span>

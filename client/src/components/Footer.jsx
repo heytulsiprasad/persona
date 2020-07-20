@@ -10,7 +10,7 @@ const Footer = () => {
 				</div>
 				<div>
 					<h3 className="text-gray-500 text-sm">
-						Copyright @{new Date().getFullYear()}. All Rights Reserved.
+						Copyright &copy;{new Date().getFullYear()}. All Rights Reserved.
 					</h3>
 				</div>
 			</div>

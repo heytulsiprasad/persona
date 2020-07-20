@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 import classes from "./Dropzone.module.css";
 
 function Dropzone() {
-	const [selectedFiles, setSelectedFiles] = useState([]);
-	const [errorMessage, setErrorMessage] = useState("");
+	const [selectedFile, setSelectedFile] = useState({});
 	const [imagePresent, setImagePresent] = useState(false);
 	const [imageLink, setImageLink] = useState("");
 
@@ -23,58 +24,59 @@ function Dropzone() {
 		e.preventDefault();
 	};
 
+	const toastInfo = {
+		position: "bottom-right",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	};
+
 	// invokes displayImage when image is dropped
 	useEffect(() => {
-		// console.log(selectedFiles);
-		selectedFiles.length === 1 && uploadImage(selectedFiles[0]);
+		// check if selectedFile is not {} then execute uploadImage
+		!(
+			Object.keys(selectedFile).length === 0 &&
+			selectedFile.constructor === Object
+		) && uploadImage(selectedFile);
 
 		// post to imgur via axios
 		// upload using FormData and send to axios
-	}, [selectedFiles]);
+	}, [selectedFile]);
 
 	const fileDrop = (e) => {
 		e.preventDefault();
-		const files = e.dataTransfer.files;
+		const files = e.dataTransfer.files; // files is an array
 
 		if (files.length === 1) {
 			// runs if one file is present
-			handleFiles(files);
-			// console.log(files[0]);
-
-			// displayImage(selectedFiles[0]);
+			handleFiles(files[0]);
 		} else {
-			alert("We only support one at a time!");
+			// alert("We only support one at a time!");
+			notify.limit("We only support one image at a time!");
 		}
 	};
 
-	const handleFiles = (files) => {
-		for (let i = 0; i < files.length; i++) {
-			if (validateFile(files[i])) {
-				// add to an array so we can display the name of file
-				setSelectedFiles((prevArray) => [...prevArray, files[i]]);
-				// console.log(selectedFiles);
-			} else {
-				// add a new property called invalid
-				files[i]["invalid"] = true;
+	const notify = {
+		limit: (msg) => toast.error(msg, { ...toastInfo }),
+		invalid: (msg) => toast.error(msg, { ...toastInfo }),
+		api: (err) => toast.error(err, { ...toastInfo }),
+	};
 
-				// update selected files array with the new file object with invalid type
-				setSelectedFiles((prevArray) => [...prevArray, files[i]]);
-
-				// set error message
-				setErrorMessage("File type not permitted");
-			}
+	const handleFiles = (file) => {
+		if (validateFile(file)) {
+			// update selected file state
+			setSelectedFile(file);
+		} else {
+			notify.invalid("File type not supported");
 		}
 	};
 
 	// checks if input file matches any of mentioned categories
 	const validateFile = (file) => {
-		const validTypes = [
-			"image/jpeg",
-			"image/jpg",
-			"image/png",
-			"image/gif",
-			"image/x-icon",
-		];
+		const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 		if (validTypes.indexOf(file.type) === -1) {
 			return false;
 		}
@@ -83,18 +85,13 @@ function Dropzone() {
 	};
 
 	const displayImage = (link) => {
-		// Used to render file directly (without upload)
-
-		// const reader = new FileReader();
-		// reader.readAsDataURL(file);
-		// reader.onload = function (e) {
-		// setImagePresent(true);
-		// imageRef.current.src = reader.result;
-		// console.log(reader.result);
-		// set the content of imageRef div as the image tag
-
+		// sets image is present state to true
 		setImagePresent(true);
+
+		// sets image link as returned from post req
 		setImageLink(link);
+
+		// sets src attr of image tag
 		imageRef.current.src = link;
 	};
 
@@ -113,14 +110,10 @@ function Dropzone() {
 
 		axios(config)
 			.then((res) => {
-				return res.data.data.link;
+				console.log(res.data);
+				displayImage(res.data.data.link);
 			})
-			.then((link) => {
-				displayImage(link);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			.catch((err) => notify.api(err.message));
 	};
 
 	return (
@@ -142,6 +135,17 @@ function Dropzone() {
 			) : (
 				<img ref={imageRef} alt="Upload Data" />
 			)}
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</div>
 	);
 }
