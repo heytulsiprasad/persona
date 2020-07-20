@@ -15,9 +15,9 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className="space-x-4 lg:mt-6">
-				<a href="!#">Twitter</a>
-				<a href="!#">Github</a>
-				<a href="!#">ThePracticalDev</a>
+				<a href="https://bit.ly/heytulsi-twitter">Twitter</a>
+				<a href="https://bit.ly/hey-github">Github</a>
+				<a href="https://bit.ly/hey-devto">ThePracticalDev</a>
 			</div>
 		</div>
 	);

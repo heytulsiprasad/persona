@@ -1,14 +1,21 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { CircularProgressbar } from "react-circular-progressbar";
 
 import "react-toastify/dist/ReactToastify.css";
+import "react-circular-progressbar/dist/styles.css";
 import classes from "./Dropzone.module.css";
+import ImageContext from "../../context/ImageContext/ImageContext";
 
-function Dropzone({ link, isReset }) {
+function Dropzone() {
 	const [selectedFile, setSelectedFile] = useState({});
 	const [imagePresent, setImagePresent] = useState(false);
-	const [imageLink, setImageLink] = useState("");
+	const [imageLink, setImageLink] = useState(null);
+	const [loadPercentage, setLoadPercentage] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const context = useContext(ImageContext);
 
 	const imageRef = useRef();
 
@@ -48,17 +55,21 @@ function Dropzone({ link, isReset }) {
 
 	useEffect(() => {
 		// passes link of image as a prop to parent
-		link(imageLink);
+		// link(imageLink);
+
+		context.updateImage(imageLink, false);
 	}, [imageLink]);
 
 	useEffect(() => {
 		// resets the component state
-		if (isReset) {
+		if (context.isReset) {
 			setSelectedFile({});
 			setImagePresent(false);
 			setImageLink(null);
+			setIsLoading(false);
+			setLoadPercentage(0);
 		}
-	}, [isReset]);
+	}, [context.isReset]);
 
 	const fileDrop = (e) => {
 		e.preventDefault();
@@ -74,7 +85,7 @@ function Dropzone({ link, isReset }) {
 	};
 
 	const notify = {
-		limit: (msg) => toast.error(msg, { ...toastInfo }),
+		limit: (msg) => toast.warn(msg, { ...toastInfo }),
 		invalid: (msg) => toast.error(msg, { ...toastInfo }),
 		api: (err) => toast.error(err, { ...toastInfo }),
 	};
@@ -99,8 +110,8 @@ function Dropzone({ link, isReset }) {
 	};
 
 	const displayImage = (link) => {
-		// sets image is present state to true
-		setImagePresent(true);
+		// sets image is loading as false
+		setIsLoading(false);
 
 		// sets image link as returned from post req
 		setImageLink(link);
@@ -120,11 +131,19 @@ function Dropzone({ link, isReset }) {
 				Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`,
 			},
 			data: formData,
+			onUploadProgress: (progressEvent) => {
+				const uploadPercentage = Math.floor(
+					(progressEvent.loaded / progressEvent.total) * 100
+				);
+				setIsLoading(true); // sets is loading as true
+				setImagePresent(true); // clears the dropzone area
+				setLoadPercentage(uploadPercentage); // starts upload bar
+			},
 		};
 
 		axios(config)
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				displayImage(res.data.data.link);
 			})
 			.catch((err) => notify.api(err.message));
@@ -146,9 +165,16 @@ function Dropzone({ link, isReset }) {
 					<div className={classes.UploadIcon}></div>
 					Drag & Drop files here or click to upload
 				</div>
-			) : (
+			) : loadPercentage === 100 && !isLoading ? (
 				<img ref={imageRef} alt="Upload Data" />
+			) : (
+				<CircularProgressbar
+					className="m-auto h-24"
+					value={loadPercentage}
+					text={`${loadPercentage}%`}
+				/>
 			)}
+
 			<ToastContainer
 				position="bottom-right"
 				autoClose={5000}

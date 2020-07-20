@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/image.svg";
 
 const NavBar = () => {
 	return (
 		<nav className="flex items-center justify-center md:flex-col md:space-y-8 border-solid border-b border-gray-400 py-8 px-48 lg:px-32">
 			<div className="flex items-center md:mx-auto space-x-1 mr-auto">
-				<img src={Logo} alt="logo" className="h-10" />
+				<img src={Logo} alt="logo" className="h-10 mr-2" />
 				<h1 className="text-xl font-bold">
 					<Link to="/">Persona</Link>
 				</h1>
