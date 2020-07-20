@@ -1,9 +1,0 @@
-.About {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.AboutContent {
-  flex-grow: 1;
-}

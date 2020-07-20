@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
 
 import Logo from "../assets/image.svg";
 
@@ -9,19 +8,14 @@ const NavBar = () => {
 			<div className="flex items-center md:mx-auto space-x-1 mr-auto">
 				<img src={Logo} alt="logo" className="h-10 mr-2" />
 				<h1 className="text-xl font-bold">
-					<Link to="/">Persona</Link>
+					<a href="/">Persona</a>
 				</h1>
 			</div>
 			<div className="flex font-bold space-x-4 md:ml-4">
 				<div>
-					<NavLink to="/" className="text-lg">
+					<a href="/" className="text-lg">
 						Home
-					</NavLink>
-				</div>
-				<div>
-					<NavLink to="/about" className="text-lg">
-						About
-					</NavLink>
+					</a>
 				</div>
 			</div>
 		</nav>

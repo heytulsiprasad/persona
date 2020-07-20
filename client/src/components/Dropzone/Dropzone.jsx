@@ -173,7 +173,6 @@ function Dropzone() {
 			{!imagePresent ? (
 				<div className={classes.DropMessage}>
 					<div className={classes.UploadIcon}></div>
-					Drag & Drop files here or click to upload
 				</div>
 			) : loadPercentage === 100 && !isLoading ? (
 				<img ref={imageRef} alt="Upload Data" />
