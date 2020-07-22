@@ -5,7 +5,7 @@
     <img src="https://www.freelogodesign.org/file/app/client/thumb/0f80c559-bf1a-4b2c-8515-97921e829e46_200x200.png?1595278414628" alt="Persona Logo">
   </a>
 
-  <h3 align="center">Fast and efficient Image uploader made while keeping minimalism in mind.</h3>
+  <h3 align="center">Fast and efficient Image uploader made while keeping minimalism in mind</h3>
 
 # Persona — Image Uploader
 
@@ -22,7 +22,7 @@ Start developing loally
 ### Clone the repo
 
 ```bash
-https://github.com/heytulsiprasad/persona.git
+git clone https://github.com/heytulsiprasad/persona.git
 ```
 
 ### Install Dependencies
@@ -60,4 +60,5 @@ _We are using `.env` file inside our react project, so for it to detect we need 
 
 </br>
 <a href="https://twitter.com/heytulsiprasad"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/heytulsiprasad?style=social"/></a>
+</br>
 Made with :heart: and Javascript

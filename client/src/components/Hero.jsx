@@ -4,54 +4,19 @@ import Dropzone from "./Dropzone/Dropzone";
 import ImageContext from "../context/ImageContext/ImageContext";
 
 class Hero extends Component {
-	// this.state = {
-	// 	copySuccess: "Copy to Clipboard",
-	// 	isCopied: false,
-	// 	imgLink: null,
-	// 	isReset: false,
-	// };
-
 	copyToClipboard = (e) => {
 		this.mainLink.select();
 		document.execCommand("copy");
 		e.target.focus();
-		// this.setState((state) => ({
-		// 	...state,
-		// 	copySuccess: "Copied!",
-		// 	isCopied: true,
-		// }));
-
 		this.context.updateCopy("Copied!", true);
 
-		// sets copy button text to back to initial state
-		// setTimeout(() => {
-		// 	// this.setState((state) => ({
-		// 	// 	...state,
-		// 	// 	isCopied: false,
-		// 	// 	copySuccess: "Copy to Clipboard",
-		// 	// }));
-
-		// 	this.context.updateCopy("Copy to Clipboard", false);
-		// }, 2000);
-	};
-
-	// updateImageLink = (link) => {
-	// this.setState((state) => ({ ...state, imgLink: link, isReset: false }));
-
-	// this.context.updateImage(link, false);
-	// };
+		setTimeout(() => {
+			this.context.updateCopy("Copy to Clipboard", false)
+		}, 3000)
+	}
 
 	resetAll = () => {
-		// this.setState({
-		// 	copySuccess: "Copy to Clipboard",
-		// 	isCopied: false,
-		// 	imgLink: null,
-		// 	isReset: true,
-		// });
-
 		this.context.updateAllState("Copy to Clipboard", false, null, true);
-
-		// imgLink will be updated when `updateImageLink` will be invoked
 	};
 
 	render() {
@@ -60,10 +25,7 @@ class Hero extends Component {
 		return (
 			<div className="flex flex-col space-y-16 justify-center items-center mt-6 px-6 sm:px-0 py-12">
 				<div className="w-10/12 xl:w-3/4 lg:w-11/12">
-					<Dropzone
-					// isReset={this.context.isReset}
-					// link={(link) => this.updateImageLink(link)}
-					/>
+					<Dropzone/>
 				</div>
 				<div className="w-1/2 xl:w-3/5 lg:w-3/4 px-12 sm:px-0 self-center xl:mt-12">
 					<h1 className="text-4xl xl:text-3xl text-center">
